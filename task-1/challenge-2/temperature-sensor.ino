@@ -1,33 +1,20 @@
-void setup() 	
-	{
-
-		Serial.begin(9600);
-
-		pinMode(6,OUTPUT);
-
-	}
-
-int temperature;
+void setup()
+{
+  pinMode(13, OUTPUT);//set pin13 as output
+}
 
 void loop()
-
 {
-
-    temperature = analogRead(A3);
-    temperature = temperature * 0.48828125;
-    if (temperature >= 100)
-
-	{
-
-		digitalWrite(6, HIGH);
-
-		delay(500);
-
-		digitalWrite(6, LOW);
-
-		delay(500);	
-
-	}
-
-
+  digitalWrite(13, LOW);
+  // temperature sensor input
+  if (analogRead(A3) > 300) {
+    digitalWrite(13, HIGH);
+  } else 
+  {
+    digitalWrite(13, LOW);
+  }
+  if (analogRead(A3) < 310) {
+    digitalWrite(13, LOW);
+  }
+  delay(10); // Delay a little bit to improve simulation performance
 }
