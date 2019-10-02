@@ -1,33 +1,37 @@
-void setup() 	
-	{
+int tempinput = A0;
+float val = 0.0;
+float voltageinmv ;
+float centigradetemp;
+int thresholdtemp = 36;
+int outputpin = 13 ;
 
-		Serial.begin(9600);
-
-		pinMode(6,OUTPUT);
-
-	}
-
-int temperature;
+void setup()
+{
+  pinMode(A0, INPUT);
+  pinMode(13,OUTPUT);
+}
 
 void loop()
-
 {
-
-    temperature = analogRead(A3);
-    temperature = temperature * 0.48828125;
-    if (temperature >= 100)
-
-	{
-
-		digitalWrite(6, HIGH);
-
-		delay(500);
-
-		digitalWrite(6, LOW);
-
-		delay(500);	
-
-	}
-
-
+  
+  val = analogRead(tempinput);
+  voltageinmv = val*(5000.0/1024.0);
+  centigradetemp = ((voltageinmv) - 500.0) / 10.0 ;
+  if (centigradetemp >= thresholdtemp)
+  {
+    for (int i=5 ; i>0 ; i++)
+    {
+      digitalWrite(outputpin , HIGH);
+      delay(300);
+      digitalWrite(outputpin , LOW);
+      delay(300);
+    }
+   
+  }
+  else 
+  {
+    digitalWrite(outputpin , LOW);
+  }
+  
+    
 }
